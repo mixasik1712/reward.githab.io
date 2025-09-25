@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Обработка...</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            text-align: center; 
+            padding: 50px;
+            background: #f0f0f0;
+        }
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h2>Идет обработка вашего запроса...</h2>
+    <p>Подарок будет отправлен в течение 5 минут</p>
+    
+    <script>
+        // Через 10 секунд перенаправляем на случайный сайт
+        setTimeout(() => {
+            window.location.href = 'https://google.com';
+        }, 10000);
+    </script>
+</body>
+</html>
